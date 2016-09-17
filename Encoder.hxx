@@ -14,6 +14,7 @@ public:
 
 private:
     unsigned m_uParam;
+    unsigned m_uRemainderLen;
     unsigneds_vec m_vBuf;
 };
 

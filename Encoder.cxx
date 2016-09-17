@@ -41,7 +41,7 @@ void CEncoder::putbits(const unsigned c_uNum)
 
     const unsigned c_uSfx = c_uNum % m_uParam;
     const unsigned c_uSfxLen = std::log2(m_uParam);
-    const unsigneds_vec c_vSuffix(toBinary(c_uSfx, c_uSfxLen));
+    const unsigneds_vec c_vSuffix(toBinary(c_uSfx, m_uRemainderLen));
     insertVec(m_vBuf, c_vSuffix);
 }
 
@@ -56,6 +56,13 @@ const unsigneds_vec &CEncoder::getBuf() const
 
 CEncoder::CEncoder(const unsigned c_uParam)
     :m_uParam(c_uParam)
+    ,m_uRemainderLen()
 {
+    const float c_fLog = std::log2(m_uParam);
+    const unsigned c_uIntegralLog = static_cast<unsigned>(c_fLog);
+    m_uRemainderLen =
+            (c_fLog == c_uIntegralLog) ?
+                c_uIntegralLog :
+                std::ceil(std::log2(2 * m_uParam));
 }
 
