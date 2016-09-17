@@ -4,15 +4,24 @@
 
 #include "GeomDistr.hxx"
 #include "Encoder.hxx"
+#include "Decoder.hxx"
 
+#include <cassert>
 int main()
 {
-    CEncoder encoder(4);
-    encoder.putbits(9);
+    const unsigned c_uParam = 16;
+    const unsigned c_uTestVal = 40;
+
+    CEncoder encoder(c_uParam);
+    encoder.putbits(c_uTestVal);
     const unsigneds_vec& c_vBuf = encoder.getBuf();
 
     std::copy(c_vBuf.begin(), c_vBuf.end(),
                 std::ostream_iterator<unsigned>(std::cout, " "));
     std::cout << std::endl;
+
+    CDecoder decoder(c_uParam);
+    const unsigned c_uDecoded = decoder.getBits(c_vBuf);
+    assert(c_uDecoded == c_uTestVal);
     return 0;
 }

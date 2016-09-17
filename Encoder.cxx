@@ -18,8 +18,8 @@ unsigneds_vec toBinary(const unsigned c_uNum, const unsigned c_uLen)
     vBinary.resize(c_uLen, 0);
     for(unsigned i = 0; i < c_uLen; i++)
     {
-        const unsigned c_uBit = static_cast<unsigned>(std::pow(2.0f, i)) & c_uNum;
-        vBinary[c_uLen - i - 1] = c_uBit == 0 ? 0 : 1;
+        const unsigned c_uBit = (c_uNum >> i) & 1;
+        vBinary[c_uLen - i - 1] = c_uBit;
     }
     return vBinary;
 }
