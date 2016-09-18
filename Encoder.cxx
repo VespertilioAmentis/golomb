@@ -33,16 +33,31 @@ void insertVec(unsigneds_vec& vDst, const unsigneds_vec& c_vSrc)
 
 //==
 
-void CEncoder::putbits(const unsigned c_uNum)
+void CEncoder::putbits(const unsigned c_uN)
 {
-    const unsigned c_uPfx = c_uNum / m_uParam;
-    const unsigneds_vec c_vUnaryPfx = toUnary(c_uPfx);
-    insertVec(m_vBuf, c_vUnaryPfx);
+    const unsigned c_uQ = c_uN / mc_uM;
+    insertVec(m_vBuf, toUnary(c_uQ));
+    const unsigned c_uR = c_uN % mc_uM;
 
-    const unsigned c_uSfx = c_uNum % m_uParam;
-    const unsigned c_uSfxLen = std::log2(m_uParam);
-    const unsigneds_vec c_vSuffix(toBinary(c_uSfx, m_uRemainderLen));
-    insertVec(m_vBuf, c_vSuffix);
+    const float c_fLog = std::log2(mc_uM);
+    const unsigned c_uLog = static_cast<unsigned>(c_fLog);
+    if(c_uLog == c_fLog)
+    {
+        insertVec(m_vBuf, toBinary(c_uR, c_uLog));
+    }
+    else
+    {
+        const unsigned c_uB = std::ceil(c_fLog);
+        const unsigned c_u2BM = std::pow(2.0f, c_uB) - mc_uM;
+        if(c_uR < c_u2BM)
+        {
+            insertVec(m_vBuf, toBinary(c_uR, c_uB - 1));
+        }
+        else
+        {
+            insertVec(m_vBuf, toBinary(c_uR + c_u2BM, c_uB));
+        }
+    }
 }
 
 //==
@@ -54,15 +69,8 @@ const unsigneds_vec &CEncoder::getBuf() const
 
 //==
 
-CEncoder::CEncoder(const unsigned c_uParam)
-    :m_uParam(c_uParam)
-    ,m_uRemainderLen()
+CEncoder::CEncoder(const unsigned c_uM)
+    :mc_uM(c_uM)
 {
-    const float c_fLog = std::log2(m_uParam);
-    const unsigned c_uIntegralLog = static_cast<unsigned>(c_fLog);
-    m_uRemainderLen =
-            (c_fLog == c_uIntegralLog) ?
-                c_uIntegralLog :
-                std::ceil(std::log2(2 * m_uParam));
 }
 

@@ -9,7 +9,7 @@
 #include <cassert>
 int main()
 {
-    const unsigned c_uParam = 5;
+    const unsigned c_uParam = 3;
 
     CGeomDistr distr(0.01f);
 
