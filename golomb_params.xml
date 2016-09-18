@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<golomb>
+	<prob>0.1</prob>
+	<experiments_cnt>10000</experiments_cnt>
+	<codec_param>11</codec_param>
+</golomb>
