@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
+<!-- Place this file into folder with executable -->
 <golomb>
-	<prob>0.1</prob>
-	<experiments_cnt>10000</experiments_cnt>
-	<codec_param>11</codec_param>
+	<prob>0.1</prob> <!-- Parameter for geometry distribution used for creating numbers for encoder input Non-integral value between zero and one -->
+	<experiments_cnt>10000</experiments_cnt> <!-- Amount of encoded values -->
+	<codec_param>11</codec_param> <!-- So-called "m" for golomb codec. Positive integral value -->
 </golomb>
