@@ -9,11 +9,11 @@
 #include <cassert>
 int main()
 {
-    const unsigned c_uParam = 3;
+    const unsigned c_uParam = 5;
 
     CGeomDistr distr(0.01f);
 
-    const unsigned c_uTestVal = 17;
+    const unsigned c_uTestVal = 13;
 
     CEncoder encoder(c_uParam);
     encoder.putbits(c_uTestVal);
