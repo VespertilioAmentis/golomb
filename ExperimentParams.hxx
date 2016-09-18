@@ -8,6 +8,7 @@ public:
     unsigned getM() const;
     unsigned getExperimentsCnt() const;
     float getProb() const;
+    bool isValid() const;
     CExperimentParams();
 
 private:

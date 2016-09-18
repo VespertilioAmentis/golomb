@@ -1,21 +1,31 @@
 #include <iostream>
-#include <algorithm>
 #include <iterator>
+#include <fstream>
 
 #include "GeomDistr.hxx"
 #include "Encoder.hxx"
 #include "Decoder.hxx"
 #include "BinaryOps.hxx"
+#include "ExperimentParams.hxx"
 
 #include <cassert>
+
 int main()
 {
-    const unsigned c_uParam = 16;
+    const CExperimentParams c_params;
 
-    CGeomDistr distr(0.01f);
+    if(!c_params.isValid())
+    {
+        std::cerr << "Couldn't set params. Exitting...";
+        return 1;
+    }
+
+    const unsigned c_uParam = c_params.getM();
+
+    CGeomDistr distr(c_params.getProb());
     CEncoder encoder(c_uParam);
 
-    const unsigned c_uExperimentsCnt = 10000;
+    const unsigned c_uExperimentsCnt = c_params.getExperimentsCnt();
 
     unsigneds_vec vTestVals;
     unsigneds_vec vNoncompressedUnaries;
@@ -30,11 +40,14 @@ int main()
     }
 
     unsigneds_vec vBuf = encoder.getBuf();
-    std::cout << "Compression: "
-              << vNoncompressedUnaries.size() / vBuf.size() * 100.0f
+    {
+    std::ofstream ofResults("results.txt");
+    ofResults << "Raw length: " << vNoncompressedUnaries.size() << "\n"
+              << "Encoded length: " << vBuf.size() << "\n"
+              << "Compressed to: "
+              << vBuf.size() * 100.0f / vNoncompressedUnaries.size()
               << "%" << std::endl;
-
-
+    }
 
     CDecoder decoder(c_uParam);
     for(unsigned i = 0; i < c_uExperimentsCnt; i++)
