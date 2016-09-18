@@ -2,7 +2,6 @@
 #include "BinaryOps.hxx"
 
 #include <cmath>
-#include <bitset>
 
 void insertVec(unsigneds_vec& vDst, const unsigneds_vec& c_vSrc)
 {
