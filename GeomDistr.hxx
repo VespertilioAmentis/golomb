@@ -11,7 +11,7 @@ public:
 
 private:
     std::default_random_engine m_engine;
-    std::geometric_distribution<int> m_distr;
+    std::geometric_distribution<unsigned> m_distr;
 };
 
 #endif // CGEOMDISTR_HXX
