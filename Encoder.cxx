@@ -1,30 +1,8 @@
 #include "Encoder.hxx"
+#include "BinaryOps.hxx"
+
 #include <cmath>
 #include <bitset>
-
-unsigneds_vec toUnary(const unsigned c_uNum)
-{
-    unsigneds_vec vEncoded;
-    vEncoded.resize(c_uNum, 1);
-    vEncoded.push_back(0);
-    return vEncoded;
-}
-
-//==
-
-unsigneds_vec toBinary(const unsigned c_uNum, const unsigned c_uLen)
-{
-    unsigneds_vec vBinary;
-    vBinary.resize(c_uLen, 0);
-    for(unsigned i = 0; i < c_uLen; i++)
-    {
-        const unsigned c_uBit = (c_uNum >> i) & 1;
-        vBinary[c_uLen - i - 1] = c_uBit;
-    }
-    return vBinary;
-}
-
-//==
 
 void insertVec(unsigneds_vec& vDst, const unsigneds_vec& c_vSrc)
 {

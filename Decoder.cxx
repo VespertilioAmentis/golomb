@@ -1,34 +1,7 @@
 #include "Decoder.hxx"
-#include <algorithm>
+#include "BinaryOps.hxx"
 
-unsigned fromUnary(const unsigneds_vec& c_vBuf)
-{
-    for(unsigned uDiv = 0; uDiv < c_vBuf.size(); uDiv++)
-    {
-        if(c_vBuf.at(uDiv) == 0)
-        {
-            return uDiv;
-        }
-    }
-    return -1;
-}
-
-//==
-
-unsigned fromBinary(const unsigneds_vec& c_vBuf, const unsigned c_uPos,
-                    const unsigned c_uLen)
-{
-    unsigned uRes = 0;
-    const unsigned c_uLastBit = c_uPos + c_uLen;
-    for(unsigned i = c_uPos + 1; i <= c_uLastBit; i++)
-    {
-        const unsigned c_uPow = c_uLastBit - i;
-        uRes += c_vBuf.at(i) << c_uPow;
-    }
-    return uRes;
-}
-
-//==
+#include <cmath>
 
 unsigned CDecoder::getBits(const unsigneds_vec &c_vBuf) const
 {
