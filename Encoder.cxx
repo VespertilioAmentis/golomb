@@ -37,13 +37,19 @@ void CEncoder::putbits(const unsigned c_uN)
 {
     const unsigned c_uQ = c_uN / mc_uM;
     insertVec(m_vBuf, toUnary(c_uQ));
+
     const unsigned c_uR = c_uN % mc_uM;
 
     const float c_fLog = std::log2(mc_uM);
     const unsigned c_uLog = static_cast<unsigned>(c_fLog);
+
+    unsigned uSfx = 0;
+    unsigned uLen = 0;
+
     if(c_uLog == c_fLog)
     {
-        insertVec(m_vBuf, toBinary(c_uR, c_uLog));
+        uSfx = c_uR;
+        uLen = c_uLog;
     }
     else
     {
@@ -51,13 +57,16 @@ void CEncoder::putbits(const unsigned c_uN)
         const unsigned c_u2BM = std::pow(2.0f, c_uB) - mc_uM;
         if(c_uR < c_u2BM)
         {
-            insertVec(m_vBuf, toBinary(c_uR, c_uB - 1));
+            uSfx = c_uR;
+            uLen = c_uB - 1;
         }
         else
         {
-            insertVec(m_vBuf, toBinary(c_uR + c_u2BM, c_uB));
+            uSfx = c_uR + c_u2BM;
+            uLen = c_uB;
         }
     }
+    insertVec(m_vBuf, toBinary(uSfx, uLen));
 }
 
 //==
