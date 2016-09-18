@@ -15,4 +15,9 @@ unsigneds_vec toBinary(const unsigned c_uNum, const unsigned c_uLen);
 unsigned fromUnary(const unsigneds_vec& c_vBuf);
 unsigned fromBinary(const unsigneds_vec& c_vBuf, const unsigned c_uPos,
                     const unsigned c_uLen);
+
+//==
+
+void insertVec(unsigneds_vec& vDst, const unsigneds_vec& c_vSrc);
+
 #endif // BINARYOPS_HXX

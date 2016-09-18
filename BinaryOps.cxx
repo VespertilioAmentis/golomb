@@ -50,3 +50,10 @@ unsigned fromBinary(const unsigneds_vec& c_vBuf, const unsigned c_uPos,
     }
     return uRes;
 }
+
+//==
+
+void insertVec(unsigneds_vec& vDst, const unsigneds_vec& c_vSrc)
+{
+    vDst.insert(vDst.end(), c_vSrc.begin(), c_vSrc.end());
+}

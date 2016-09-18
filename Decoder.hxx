@@ -6,7 +6,7 @@
 class CDecoder
 {
 public:
-    unsigned getBits(const unsigneds_vec& c_vBuf) const;
+    unsigned getBits(unsigneds_vec& vBuf) const;
     explicit CDecoder(const unsigned c_uM);
 private:
     const unsigned mc_uM;

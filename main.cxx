@@ -12,19 +12,27 @@ int main()
     const unsigned c_uParam = 15;
 
     CGeomDistr distr(0.01f);
+    CEncoder encoder(c_uParam);
 
-    for(unsigned i = 0; i < 10000; i++)
+    const unsigned c_uExperimentsCnt = 10000;
+    unsigneds_vec vTestVals;
+    vTestVals.reserve(c_uExperimentsCnt);
+    for(unsigned i = 0; i < c_uExperimentsCnt; i++)
     {
         const unsigned c_uTestVal = distr.get();
-
-        CEncoder encoder(c_uParam);
+        vTestVals.push_back(c_uTestVal);
         encoder.putbits(c_uTestVal);
-        const unsigneds_vec& c_vBuf = encoder.getBuf();
-
-        CDecoder decoder(c_uParam);
-        const unsigned c_uDecoded = decoder.getBits(c_vBuf);
-        assert(c_uDecoded == c_uTestVal);
     }
+
+    unsigneds_vec vBuf = encoder.getBuf();
+
+    CDecoder decoder(c_uParam);
+    for(unsigned i = 0; i < c_uExperimentsCnt; i++)
+    {
+        unsigned c_uDecoded = decoder.getBits(vBuf);
+        assert(c_uDecoded == vTestVals.at(i));
+    }
+    assert(vBuf.empty());
 
     return 0;
 }

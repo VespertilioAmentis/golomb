@@ -3,13 +3,6 @@
 
 #include <cmath>
 
-void insertVec(unsigneds_vec& vDst, const unsigneds_vec& c_vSrc)
-{
-    vDst.insert(vDst.end(), c_vSrc.begin(), c_vSrc.end());
-}
-
-//==
-
 void CEncoder::putbits(const unsigned c_uN)
 {
     const unsigned c_uQ = c_uN / mc_uM;
