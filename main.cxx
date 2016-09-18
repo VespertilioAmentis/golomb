@@ -9,11 +9,11 @@
 #include <cassert>
 int main()
 {
-    const unsigned c_uParam = 5;
+    const unsigned c_uParam = 4;
 
     CGeomDistr distr(0.01f);
 
-    const unsigned c_uTestVal = 13;
+    const unsigned c_uTestVal = 9;
 
     CEncoder encoder(c_uParam);
     encoder.putbits(c_uTestVal);
@@ -25,7 +25,7 @@ int main()
 
     CDecoder decoder(c_uParam);
     const unsigned c_uDecoded = decoder.getBits(c_vBuf);
-//    assert(c_uDecoded == c_uTestVal);
+    assert(c_uDecoded == c_uTestVal);
 
     return 0;
 }

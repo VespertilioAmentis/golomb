@@ -40,11 +40,11 @@ void CEncoder::putbits(const unsigned c_uN)
 
     const unsigned c_uR = c_uN % mc_uM;
 
-    const float c_fLog = std::log2(mc_uM);
-    const unsigned c_uLog = static_cast<unsigned>(c_fLog);
-
     unsigned uSfx = 0;
     unsigned uLen = 0;
+
+    const float c_fLog = std::log2(mc_uM);
+    const unsigned c_uLog = static_cast<unsigned>(c_fLog);
 
     if(c_uLog == c_fLog)
     {
